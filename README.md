@@ -1,7 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/rxjs-throw-if.svg?style=for-the-badge)](https://www.npmjs.com/package/rxjs-throw-if)
 
 # ThrowIf
-RxJS operator which throw an error if the predicate is met.
+RxJS operator which throws an error if the given predicate is met.
 
 Example usage
 ```TypeScript
