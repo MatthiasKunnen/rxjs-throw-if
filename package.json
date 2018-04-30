@@ -1,0 +1,27 @@
+{
+    "name": "rxjs-throw-if",
+    "version": "0.0.0",
+    "description": "Throw an error when a predicate is met",
+    "author": {
+        "email": "matthias.kunnen@gmail.com",
+        "name": "Matthias Kunnen"
+    },
+    "main": "index.js",
+    "types": "index.d.ts",
+    "license": "MIT",
+    "keywords": [
+        "RxJS",
+        "Throw if",
+        "Throw conditionally"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json"
+    },
+    "dependencies": {
+        "rxjs": "^5.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MatthiasKunnen/rxjs-throw-if"
+    }
+}
