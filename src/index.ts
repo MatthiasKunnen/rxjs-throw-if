@@ -1,8 +1,10 @@
-import { MonoTypeOperatorFunction } from 'rxjs/interfaces';
-import { Observable } from 'rxjs/Observable';
-import { Operator } from 'rxjs/Operator';
-import { Subscriber } from 'rxjs/Subscriber';
-import { TeardownLogic } from 'rxjs/Subscription';
+import {
+    MonoTypeOperatorFunction,
+    Observable,
+    Operator,
+    Subscriber,
+    TeardownLogic
+} from 'rxjs';
 
 class ThrowIfSubscriber<T> extends Subscriber<T> {
 
