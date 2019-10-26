@@ -25,6 +25,7 @@
         "url": "https://github.com/MatthiasKunnen/rxjs-throw-if"
     },
     "files": [
-        "/lib"
+        "/lib",
+        "/src"
     ]
 }
