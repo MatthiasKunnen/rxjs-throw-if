@@ -1,20 +1,6 @@
 {
-    "compileOnSave": false,
+    "extends": "./tsconfig.base",
     "compilerOptions": {
-        "baseUrl": "./",
-        "declaration": true,
-        "module": "es6",
-        "moduleResolution": "node",
-        "outDir": "./lib",
-        "sourceMap": true,
-        "strictNullChecks": true,
-        "target": "es5",
-        "lib": [
-            "es5",
-            "es2015"
-        ]
-    },
-    "include": [
-        "src/**/*"
-    ]
+        "noUnusedLocals": false
+    }
 }
