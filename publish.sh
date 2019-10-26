@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if output=$(git status --untracked-files=no --porcelain) && [ -n "$output" ]; then
+    echo The working directory is not clean!
+    exit 1
+fi
+
 echo "What type of publish?"
 select version_type in "patch" "minor" "major"; do
     if [ -z "$version_type" ]; then
