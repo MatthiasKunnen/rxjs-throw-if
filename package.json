@@ -1,6 +1,6 @@
 {
     "name": "rxjs-throw-if",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Throw an error when a predicate is met",
     "author": {
         "email": "matthias.kunnen@gmail.com",
