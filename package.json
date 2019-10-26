@@ -6,8 +6,8 @@
         "email": "matthias.kunnen@gmail.com",
         "name": "Matthias Kunnen"
     },
-    "main": "index.js",
-    "types": "index.d.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "license": "MIT",
     "keywords": [
         "RxJS",
@@ -23,5 +23,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/MatthiasKunnen/rxjs-throw-if"
-    }
+    },
+    "files": [
+        "/lib"
+    ]
 }
