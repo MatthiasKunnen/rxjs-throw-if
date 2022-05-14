@@ -1,5 +1,9 @@
 [![npm version](https://img.shields.io/npm/v/rxjs-throw-if.svg?style=for-the-badge)](https://www.npmjs.com/package/rxjs-throw-if)
 
+| rxjs   | throw-if |
+|:------:|:--------:|
+| ^6.0.0 | ^2.0.0   |
+
 # ThrowIf
 RxJS operator which throws an error if the given predicate is met.
 
