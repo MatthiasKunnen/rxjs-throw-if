@@ -9,11 +9,11 @@ import {
 class ThrowIfSubscriber<T> extends Subscriber<T> {
 
     constructor(
-        private myDestination: Subscriber<T>,
+        private subscriber: Subscriber<T>,
         private predicate: (value: T) => boolean,
         private errorMessage?: string,
     ) {
-        super(myDestination);
+        super(subscriber);
     }
 
     protected _next(value: T) {
@@ -21,14 +21,14 @@ class ThrowIfSubscriber<T> extends Subscriber<T> {
         try {
             result = this.predicate(value);
         } catch (err) {
-            this.myDestination.error(err);
+            this.subscriber.error(err);
             return;
         }
 
         if (result) {
-            this.myDestination.error(this.errorMessage);
+            this.subscriber.error(this.errorMessage);
         } else {
-            this.myDestination.next(value);
+            this.subscriber.next(value);
         }
     }
 }
