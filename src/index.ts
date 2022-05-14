@@ -11,7 +11,7 @@ class ThrowIfSubscriber<T> extends Subscriber<T> {
     constructor(
         private subscriber: Subscriber<T>,
         private predicate: (value: T) => boolean,
-        private errorMessage?: string,
+        private errorToThrow?: any | ((valueCausingError: T) => any),
     ) {
         super(subscriber);
     }
@@ -26,7 +26,10 @@ class ThrowIfSubscriber<T> extends Subscriber<T> {
         }
 
         if (result) {
-            this.subscriber.error(this.errorMessage);
+            const error = typeof this.errorToThrow === 'function'
+                ? this.errorToThrow(value)
+                : this.errorToThrow
+            this.subscriber.error(error);
         } else {
             this.subscriber.next(value);
         }
@@ -36,7 +39,7 @@ class ThrowIfSubscriber<T> extends Subscriber<T> {
 class ThrowIfOperator<T> implements Operator<T, T> {
     constructor(
         private predicate: (value: T) => boolean,
-        private errorMessage?: string,
+        private errorToThrow?: any,
     ) {
     }
 
@@ -44,15 +47,23 @@ class ThrowIfOperator<T> implements Operator<T, T> {
         return source.subscribe(new ThrowIfSubscriber(
             subscriber,
             this.predicate,
-            this.errorMessage,
+            this.errorToThrow,
         ));
     }
 }
 
 export function throwIf<T>(
     predicate: (value: T) => boolean,
-    errorMessage?: string,
+    error?: (valueCausingError: T) => any,
+): MonoTypeOperatorFunction<T>;
+export function throwIf<T>(
+    predicate: (value: T) => boolean,
+    error?: any,
+): MonoTypeOperatorFunction<T>;
+export function throwIf<T>(
+    predicate: (value: T) => boolean,
+    error?: any,
 ): MonoTypeOperatorFunction<T> {
     return (source: Observable<T>) =>
-        source.lift(new ThrowIfOperator(predicate, errorMessage));
+        source.lift(new ThrowIfOperator(predicate, error));
 }
