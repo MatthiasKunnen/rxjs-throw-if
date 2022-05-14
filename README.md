@@ -1,16 +1,17 @@
 [![npm version](https://img.shields.io/npm/v/rxjs-throw-if.svg?style=for-the-badge)](https://www.npmjs.com/package/rxjs-throw-if)
 
-| rxjs   | throw-if |
+|  rxjs  | throw-if |
 |:------:|:--------:|
-| ^6.0.0 | ^2.0.0   |
+| ^7.0.0 |  ^3.0.0  |
+| ^6.0.0 |  ^2.0.0  |
 
 # ThrowIf
 RxJS operator which throws an error if the given predicate is met.
 
 **Example with simple error**
 ```TypeScript
-import { throwIf } from 'rxjs-throw-if';
-import { interval } from 'rxjs/observable/interval';
+import {throwIf} from 'rxjs-throw-if';
+import {interval} from 'rxjs';
 
  interval(1000).pipe(
     throwIf(v => v === 5, 'Index should not exceed 4'),

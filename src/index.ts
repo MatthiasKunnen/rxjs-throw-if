@@ -1,69 +1,29 @@
-import {
-    MonoTypeOperatorFunction,
-    Observable,
-    Operator,
-    Subscriber,
-    TeardownLogic
-} from 'rxjs';
-
-class ThrowIfSubscriber<T> extends Subscriber<T> {
-
-    constructor(
-        private subscriber: Subscriber<T>,
-        private predicate: (value: T) => boolean,
-        private errorToThrow?: any | ((valueCausingError: T) => any),
-    ) {
-        super(subscriber);
-    }
-
-    protected _next(value: T) {
-        let result: any;
-        try {
-            result = this.predicate(value);
-        } catch (err) {
-            this.subscriber.error(err);
-            return;
-        }
-
-        if (result) {
-            const error = typeof this.errorToThrow === 'function'
-                ? this.errorToThrow(value)
-                : this.errorToThrow
-            this.subscriber.error(error);
-        } else {
-            this.subscriber.next(value);
-        }
-    }
-}
-
-class ThrowIfOperator<T> implements Operator<T, T> {
-    constructor(
-        private predicate: (value: T) => boolean,
-        private errorToThrow?: any,
-    ) {
-    }
-
-    call(subscriber: Subscriber<T>, source: any): TeardownLogic {
-        return source.subscribe(new ThrowIfSubscriber(
-            subscriber,
-            this.predicate,
-            this.errorToThrow,
-        ));
-    }
-}
+import {OperatorFunction, pipe} from 'rxjs'
+import {map} from 'rxjs/operators'
 
 export function throwIf<T>(
     predicate: (value: T) => boolean,
     error?: (valueCausingError: T) => any,
-): MonoTypeOperatorFunction<T>;
+): OperatorFunction<T, T>;
 export function throwIf<T>(
     predicate: (value: T) => boolean,
     error?: any,
-): MonoTypeOperatorFunction<T>;
+): OperatorFunction<T, T>;
 export function throwIf<T>(
     predicate: (value: T) => boolean,
-    error?: any,
-): MonoTypeOperatorFunction<T> {
-    return (source: Observable<T>) =>
-        source.lift(new ThrowIfOperator(predicate, error));
+    errorOrFn?: any,
+): OperatorFunction<T, T> {
+    return pipe(
+        map<T, T>(value => {
+            const predicateMet = predicate(value);
+
+            if (predicateMet) {
+                throw typeof errorOrFn === 'function'
+                    ? errorOrFn(value)
+                    : errorOrFn
+            } else {
+                return value;
+            }
+        })
+    )
 }
